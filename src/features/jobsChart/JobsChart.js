@@ -19,10 +19,11 @@ export function JobsChart() {
   ]);
   const jobsChartData = useSelector((state) => state.jobsChart);
   const test = useSelector((state) => state);
-console.log(state);
+  console.log(state);
+  
   useEffect(() => {
     dispatch(getJobsAsync({ startDate: format(state[0].startDate, serverDateFormat), endDate: format(state[0].endDate, serverDateFormat) }));
-  }, []);
+  });
 
   if (jobsChartData.isLoading) {
     return <div>Loading...</div>;
@@ -39,7 +40,7 @@ console.log(state);
           editableDateInputs={true}
           onChange={(item) => {
             setState([item.selection]);
-            if (item.selection.startDate != item.selection.endDate) {
+            if (item.selection.startDate !== item.selection.endDate) {
               dispatch(
                 getJobsAsync({
                   startDate: format(item.selection.startDate, serverDateFormat),
@@ -60,7 +61,7 @@ console.log(state);
             options={jobsChartData.options}
           />
         )}
-        {jobsChartData.data.length == 0 && <div>No data found.</div>}
+        {jobsChartData.data.length === 0 && <div>No data found.</div>}
       </div>
     );
   }
